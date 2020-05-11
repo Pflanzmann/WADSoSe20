@@ -1,20 +1,68 @@
 <html class="5">
-    <head>
-        <title>Loginformular</title>
-        <link rel="stylesheet" href="style.css" type="text/css"></link>
-      </head>
-   <body>
-   
-   <div class="container">
-     <img src="images/icon.jpg" class="icon">
-     <h1>Login</h1>
-     <form action="inc/login-inc.php" method="POST">
-     <input type="text" name="user" placeholder="Benutzername">
-     <input type="password" name="password" placeholder="Passwort"><br>
-     <button type="submit" name="submit" class="button">Login</button>
-     </form>
-     <a href="signup.php">Registrieren</a>
-   </div>
 
-   </body>
+<head>
+  <title>AdViz</title>
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+  </link>
+</head>
+
+<body>
+
+  <body onload="  
+    HideMain();
+    HideAdd();
+    HideUpdate();">
+
+
+    <div id="Login">
+
+      <div class="container">
+        <h1>Login</h1>
+        <form action="" method="POST">
+          <input type="text" name="user" placeholder="Benutzername">
+          <input type="password" name="password" placeholder="Passwort"><br>
+          <button type="button" onclick="Login()">Login</button>
+        </form>
+        <h1>Regestrieren</h1>
+        <form action="" method="POST">
+          <input type="text" name="user" placeholder="Benutzername">
+          <input type="password" name="password" placeholder="Passwort"><br>
+          <button type="button" onclick="Register()">Registrieren</button>
+        </form>
+      </div>
+
+    </div>
+
+
+    <div id="Main">
+      <h1>Main</h1>
+      <button type="button" onclick="BackToLogin()">Back to Login</button>
+      <button type="button" onclick="Add()">Add Adress</button>
+      <button type="button" onclick="Update()">Update/Delet Address</button>
+
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37726382.45182938!2d-6.727292821024105!3d54.751209915060194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e373f035901%3A0x42120465b5e3b70!2sBerlin!5e0!3m2!1sde!2sde!4v1589217730839!5m2!1sde!2sde"
+        width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+        tabindex="0"></iframe>
+
+    </div>
+
+
+    <div id="Add">
+      <h1>Add</h1>
+      <button type="button" onclick="BackToMain()">Back to Main</button>
+    </div>
+
+
+    <div id="Update">
+      <h1>Update</h1>
+      <button type="button" onclick="BackToMain()">Back to Main</button>
+    </div>
+
+
+
+
+    <script src="js/script.js"></script>
+  </body>
+
 </html>
