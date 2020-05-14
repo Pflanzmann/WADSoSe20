@@ -1,83 +1,83 @@
 
-function HideLogin() {
-    var x = document.getElementById("Login");
+function hideLogin() {
+    var x = document.getElementById("LoginContainer");
     x.style.display = "none"; 
   }
-function ShowLogin(){
-  var x = document.getElementById("Login");
+function showLogin(){
+  var x = document.getElementById("LoginContainer");
   x.style.display = "block";   
 }
 
 
-function HideMain() {
+function hideMain() {
   var x = document.getElementById("Main");
   x.style.display = "none";
 }
-function ShowMain() {
+function showMain() {
   var x = document.getElementById("Main");
   x.style.display = "block";
 }
 
 
-function HideAdd() {
-  var x = document.getElementById("Add");
+function hideAdd() {
+  var x = document.getElementById("AddContainer");
   x.style.display = "none";
 }
-function ShowAdd() {
-  var x = document.getElementById("Add");
+function showAdd() {
+  var x = document.getElementById("AddContainer");
   x.style.display = "block";
 }
 
 
-function HideUpdate() {
+function hideUpdate() {
   var x = document.getElementById("Update");
   x.style.display = "none";
 }
-function ShowUpdate() {
+function showUpdate() {
   var x = document.getElementById("Update");
   x.style.display = "block";
 }
 
-function HideAll(){
-  HideLogin();
-  HideMain();
-  HideAdd();
-  HideUpdate();
+function hideAll(){
+  hideLogin();
+  hideMain();
+  hideAdd();
+  hideUpdate();
 }
 
-function ShowAll(){
-  ShowLogin();
-  ShowMain();
-  ShowAdd();
-  ShowUpdate();
+function showAll(){
+  showLogin();
+  showMain();
+  showAdd();
+  showUpdate();
 }
 
-function Login() {
-  HideLogin();
-  ShowMain();
+function login() {
+  hideLogin();
+  showMain();
 }
 
-function Register() {
-  HideLogin();
-  ShowMain();
+function register() {
+  hideLogin();
+  showMain();
 }
 
-function Add() {
-  HideMain();
-  ShowAdd();
+function add() {
+//  hideMain();
+  showAdd();
 }
 
-function Update() {
-  HideMain();
-  ShowUpdate();
+function update() {
+//  hideMain();
+  showUpdate();
 }
 
-function BackToLogin(){
-  HideAll();
-  ShowLogin();
+function backToLogin(){
+  hideAll();
+  showLogin();
 }
 
-function BackToMain(){
-  HideAll();
-  ShowMain();
+function backToMain(){
+  hideAll();
+  showMain();
 }

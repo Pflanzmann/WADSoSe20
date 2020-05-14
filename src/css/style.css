@@ -1,14 +1,35 @@
 h1{
     color: blue;
 }
-#Login {
+
+.LoginContainer {
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    margin-top: 10%;
+    margin-left: 20%;
 }
 
-#Main{
-};
+.MainMenuContainer {
+    position: absolute;
+    padding: 10px;
+    top: 15%; 
+    left: 5%;
+    z-index: 1;
+    background-color: aliceblue;
+    opacity: 0.8;
+    display: grid
+}
 
-#Add{
-};
+.AddContainer {
+    position: absolute;
+    padding: 10px;
+    top: 15%; 
+    right: 15%;
+    z-index: 1;
+    background-color: aliceblue;
+    opacity: 0.8;
+    display: block
+}
 
-#Update{
-};
