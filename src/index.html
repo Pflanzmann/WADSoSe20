@@ -30,58 +30,50 @@
         width="100%" height="100%"></iframe>
 
       <div class="MainMenuContainer" id="MainMenuContainer">
-        <h1>Main</h1>
+        <h1>Contacts</h1>
 
         <table id="contactTable">
           <tr>
-            <th>contact</th>
+            <th>Name</th>
+            <th>Delete</th>
+            <th>Edit</th>
+            <th>Show</th>
           </tr>
           <tr>
-            <td> <button type="button" onclick="">X</button></td>
-            <td> <button type="button" onclick="">Edit</button></td>
             <td>User</td>
-          </tr>
-          <tr>
-            <td> <button type="button" onclick="">X</button></td>
-            <td> <button type="button" onclick="">Edit</button></td>
+            <td> <button type="button" onclick="">Delete</button></td>
+            <td> <button type="button" onclick="edit()">Edit</button></td>
+            <td> <input type="checkbox"> </td>
+          </tr>          <tr>
             <td>User</td>
-          </tr>
-          <tr>
-            <td> <button type="button" onclick="">X</button></td>
-            <td> <button type="button" onclick="">Edit</button></td>
+            <td> <button type="button" onclick="">Delete</button></td>
+            <td> <button type="button" onclick="edit()">Edit</button></td>
+            <td> <input type="checkbox"> </td>
+          </tr>          <tr>
             <td>User</td>
-          </tr>
-          <tr>
-            <td> <button type="button" onclick="">X</button></td>
-            <td> <button type="button" onclick="">Edit</button></td>
+            <td> <button type="button" onclick="">Delete</button></td>
+            <td> <button type="button" onclick="edit()">Edit</button></td>
+            <td> <input type="checkbox"> </td>
+          </tr>          <tr>
             <td>User</td>
-          </tr>
-          <tr>
-            <td> <button type="button" onclick="">X</button></td>
-            <td> <button type="button" onclick="">Edit</button></td>
+            <td> <button type="button" onclick="">Delete</button></td>
+            <td> <button type="button" onclick="edit()">Edit</button></td>
+            <td> <input type="checkbox"> </td>
+          </tr>          <tr>
             <td>User</td>
-          </tr>
-          <tr>
-            <td> <button type="button" onclick="">X</button></td>
-            <td> <button type="button" onclick="">Edit</button></td>
-            <td>User</td>
-          </tr>
-          <tr>
-            <td> <button type="button" onclick="">X</button></td>
-            <td> <button type="button" onclick="">Edit</button></td>
-            <td>User</td>
+            <td> <button type="button" onclick="">Delete</button></td>
+            <td> <button type="button" onclick="edit()">Edit</button></td>
+            <td> <input type="checkbox"> </td>
           </tr>
         </table>
 
         <br>
-
         <button type="button" onclick="add()">Add Address</button>
-        <button type="button" onclick="update()">Edit Addresses</button>
         <button type="button" onclick="backToLogin()">Back to Login</button>
       </div>
 
       <div id="AddContainer" class="AddContainer">
-        <h1>Add</h1>
+        <h1 id="addTitle" >Add</h1>
         <input type="text" name="user" placeholder="Vorname"><br>
         <input type="text" name="user" placeholder="Nachname"><br>
         <input type="text" name="user" placeholder="Straße"><br>

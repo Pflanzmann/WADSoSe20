@@ -24,32 +24,27 @@ function hideAdd() {
   x.style.display = "none";
 }
 function showAdd() {
+  document.getElementById("addTitle").innerHTML = "Add"
+  var x = document.getElementById("AddContainer");
+  x.style.display = "block";
+}
+function showEdit() {
+  document.getElementById("addTitle").innerHTML = "Edit"
   var x = document.getElementById("AddContainer");
   x.style.display = "block";
 }
 
 
-function hideUpdate() {
-  var x = document.getElementById("Update");
-  x.style.display = "none";
-}
-function showUpdate() {
-  var x = document.getElementById("Update");
-  x.style.display = "block";
-}
-
 function hideAll(){
   hideLogin();
   hideMain();
   hideAdd();
-  hideUpdate();
 }
 
 function showAll(){
   showLogin();
   showMain();
   showAdd();
-  showUpdate();
 }
 
 function login() {
@@ -63,13 +58,11 @@ function register() {
 }
 
 function add() {
-//  hideMain();
   showAdd();
 }
 
-function update() {
-//  hideMain();
-  showUpdate();
+function edit() {
+  showEdit();
 }
 
 function backToLogin(){
