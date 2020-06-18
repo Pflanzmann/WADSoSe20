@@ -7,19 +7,66 @@
 </head>
 
 <body>
+  <script src="js/script.js"></script>
+  <script>
+    var user;
+    var contactNummber;
+
+    function loginFunction(username, password) {
+      user = loginAsUser(username, password);
+      document.getElementById("status").innerHTML = "loged in as " + user.username;
+      document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
+      if (user.isAdmin == true) {
+        document.getElementById("addButton").hidden = false;
+      }
+    }
+
+    function addContactFunction(vorname, nachname, straße, plz, stadt, land, isPrivate) {
+      addContact(vorname, nachname, straße, plz, stadt, land, isPrivate);
+      document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
+    }
+
+    function removeContactFunction(index) {
+      removeContact(index);
+      document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
+    }
+
+    function editFunction(index) {
+      contactNummber = index;
+      edit();
+      contact = contacts[index];
+      document.getElementById('vorname_Edit').value = contact.vorname;
+      document.getElementById('nachname_Edit').value = contact.nachname;
+      document.getElementById('straße_Edit').value = contact.straße;
+      document.getElementById('plz_Edit').value = contact.plz;
+      document.getElementById('stadt_Edit').value = contact.stadt;
+      document.getElementById('land_Edit').value = contact.land;
+      document.getElementById('privat_Edit').checked = contact.isPrivate;
+    }
+
+    function editContactFunction(index, vorname, nachname, straße, plz, stadt, land, isPrivate) {
+      editContact(index, vorname, nachname, straße, plz, stadt, land, isPrivate);
+      document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
+    }
+
+
+  </script>
 
   <body onload="  
     hideMain();
     hideAdd();
+    hideEdit();
     hideUpdate();">
 
     <div class="LoginContainer" id="LoginContainer">
       <h1>Login</h1>
       <form action="" method="POST">
-        <input type="text" name="user" placeholder="Benutzername"><br>
-        <input type="password" name="password" placeholder="Passwort"><br>
-        <button type="button" onclick="login()">Login</button>
-        <button type="button" onclick="register()">Registrieren</button>
+        <input type="text" name="username" placeholder="Benutzername" id="username"><br>
+        <input type="password" name="password" placeholder="Passwort" id="password"><br>
+        <button type="button"
+          onclick="loginFunction(document.getElementById('username').value, document.getElementById('password').value);">Login</button>
+        <button type="button"
+          onclick="registerNewUser(document.getElementById('username').value, document.getElementById('password').value)">Registrieren</button>
       </form>
     </div>
 
@@ -30,64 +77,67 @@
         width="100%" height="100%"></iframe>
 
       <div class="MainMenuContainer" id="MainMenuContainer">
+        <status id="status">
+        </status>
+
         <h1>Contacts</h1>
 
         <table id="contactTable">
-          <tr>
-            <th>Name</th>
-            <th>Delete</th>
-            <th>Edit</th>
-            <th>Show</th>
-          </tr>
-          <tr>
-            <td>User</td>
-            <td> <button type="button" onclick="">Delete</button></td>
-            <td> <button type="button" onclick="edit()">Edit</button></td>
-            <td> <input type="checkbox"> </td>
-          </tr>          <tr>
-            <td>User</td>
-            <td> <button type="button" onclick="">Delete</button></td>
-            <td> <button type="button" onclick="edit()">Edit</button></td>
-            <td> <input type="checkbox"> </td>
-          </tr>          <tr>
-            <td>User</td>
-            <td> <button type="button" onclick="">Delete</button></td>
-            <td> <button type="button" onclick="edit()">Edit</button></td>
-            <td> <input type="checkbox"> </td>
-          </tr>          <tr>
-            <td>User</td>
-            <td> <button type="button" onclick="">Delete</button></td>
-            <td> <button type="button" onclick="edit()">Edit</button></td>
-            <td> <input type="checkbox"> </td>
-          </tr>          <tr>
-            <td>User</td>
-            <td> <button type="button" onclick="">Delete</button></td>
-            <td> <button type="button" onclick="edit()">Edit</button></td>
-            <td> <input type="checkbox"> </td>
-          </tr>
         </table>
 
         <br>
-        <button type="button" onclick="add()">Add Address</button>
+
+        <button hidden id="addButton" type="button" onclick="add()">Add Address</button>
         <button type="button" onclick="backToLogin()">Back to Login</button>
       </div>
 
       <div id="AddContainer" class="AddContainer">
-        <h1 id="addTitle" >Add</h1>
-        <input type="text" name="user" placeholder="Vorname"><br>
-        <input type="text" name="user" placeholder="Nachname"><br>
-        <input type="text" name="user" placeholder="Straße"><br>
-        <input type="text" name="user" placeholder="PLZ"><br>
-        <input type="text" name="user" placeholder="Stadt"><br>
-        <input type="text" name="user" placeholder="Land"><br>
-        <label>Privat</label> <input type="checkbox"><br><br>
+        <h1>Add</h1>
+        <input type="text" name="user" placeholder="Vorname" id="vorname" required><br>
+        <input type="text" name="user" placeholder="Nachname" id="nachname" required><br>
+        <input type="text" name="user" placeholder="Straße" id="straße" required><br>
+        <input type="text" name="user" placeholder="PLZ" id="plz" required><br>
+        <input type="text" name="user" placeholder="Stadt" id="stadt" required><br>
+        <input type="text" name="user" placeholder="Land" id="land" required><br>
+        <label>Privat</label> <input type="checkbox" id="privat"><br><br>
         <button type="button" onclick="hideAdd()">Cancel</button>
-        <button type="button" onclick="hideAdd()">Apply</button>
+        <button type="button" onclick="addContactFunction(
+            document.getElementById('vorname').value,
+            document.getElementById('nachname').value,
+            document.getElementById('straße').value,
+            document.getElementById('plz').value,
+            document.getElementById('stadt').value,
+            document.getElementById('land').value,
+            document.getElementById('privat').checked
+        );">Apply</button>
       </div>
     </div>
 
+    <div id="EditContainer" class="EditContainer">
+      <h1>Edit</h1>
+      <input type="text" name="user" placeholder="Vorname" id="vorname_Edit" required><br>
+      <input type="text" name="user" placeholder="Nachname" id="nachname_Edit" required><br>
+      <input type="text" name="user" placeholder="Straße" id="straße_Edit" required><br>
+      <input type="text" name="user" placeholder="PLZ" id="plz_Edit" required><br>
+      <input type="text" name="user" placeholder="Stadt" id="stadt_Edit" required><br>
+      <input type="text" name="user" placeholder="Land" id="land_Edit" required><br>
+      <label>Privat</label> <input type="checkbox" id="privat_Edit"><br><br>
+      <button type="button" onclick="hideEdit()">Cancel</button>
+      <button type="button" onclick="editContactFunction(
+          contactNummber,
+          document.getElementById('vorname_Edit').value,
+          document.getElementById('nachname_Edit').value,
+          document.getElementById('straße_Edit').value,
+          document.getElementById('plz_Edit').value,
+          document.getElementById('stadt_Edit').value,
+          document.getElementById('land_Edit').value,
+          document.getElementById('privat_Edit').checked
+      );">Apply</button>
+    </div>
+    </div>
 
-    <script src="js/script.js"></script>
+
+
   </body>
 
 </html>
