@@ -128,7 +128,7 @@ function printContacts(isAdmin) {
   var x = "<tr><th>Name</th><th>Delete</th><th>Edit</th><th>Show</th></tr>";
   for (i = 0; i < contacts.length; i++) {
     if (isAdmin == true || contacts[i].isPrivate == false) {
-      x = x + "<tr><td>" + contacts[i].vorname + " " + contacts[i].nachname + "</td><td> <button type=\"button\" onclick=\"removeContactFunction(" + i + ");\">Delete Contact " + i + "</button></td><td> <button type=\"button\" onclick=\"editFunction("+i+")\">Edit</button></td><td> <input type=\"checkbox\"> </td></tr>";
+      x = x + "<tr><td>" + contacts[i].vorname + " " + contacts[i].nachname + "</td><td> <button type=\"button\" onclick=\"removeContactFunction(" + isAdmin + "," + i + ");\">Delete Contact " + i + "</button></td><td> <button type=\"button\" onclick=\"editFunction(" + isAdmin + "," + i + ")\">Edit</button></td><td> <input type=\"checkbox\"> </td></tr>";
     }
   }
   return x;

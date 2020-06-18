@@ -26,12 +26,19 @@
       document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
     }
 
-    function removeContactFunction(index) {
+    function removeContactFunction(isAdmin, index) {
+      if (isAdmin == false) {
+        return;
+      }
+
       removeContact(index);
       document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
     }
 
-    function editFunction(index) {
+    function editFunction(isAdmin, index) {
+      if (isAdmin == false) {
+        return;
+      }
       contactNummber = index;
       edit();
       contact = contacts[index];
@@ -47,6 +54,11 @@
     function editContactFunction(index, vorname, nachname, straße, plz, stadt, land, isPrivate) {
       editContact(index, vorname, nachname, straße, plz, stadt, land, isPrivate);
       document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
+    }
+
+    function backToLoginFunction() {
+      document.getElementById("addButton").hidden = true;
+      backToLogin();
     }
 
 
@@ -88,7 +100,7 @@
         <br>
 
         <button hidden id="addButton" type="button" onclick="add()">Add Address</button>
-        <button type="button" onclick="backToLogin()">Back to Login</button>
+        <button type="button" onclick="backToLoginFunction()">Back to Login</button>
       </div>
 
       <div id="AddContainer" class="AddContainer">
