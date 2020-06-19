@@ -11,9 +11,7 @@
 <body>
   <script src="js/contactsScript.js"></script>
   <script src="js/presentationScript.js"></script>
-  <script src="js/controleScript.js"></script>
   <script src="js/loginScript.js"></script>
-  <script src="js/mapScript.js"></script>
   <script src="js/mapScript.js"></script>
 
   <body onload="  
@@ -24,8 +22,8 @@
     <div class="LoginContainer" id="LoginContainer">
       <h1>Login</h1>
       <form action="" method="POST">
-        <input type="text" name="username" placeholder="Benutzername" id="username"><br>
-        <input type="password" name="password" placeholder="Passwort" id="password"><br>
+        <input type="text" name="username" placeholder="Benutzername" id="username" required><br>
+        <input type="password" name="password" placeholder="Passwort" id="password" required><br>
         <button type="button"
           onclick="loginFunction(document.getElementById('username').value, document.getElementById('password').value);">Login</button>
         <button type="button"
@@ -52,7 +50,15 @@
         <button type="button" onclick="backToLoginFunction()">Back to Login</button>
       </div>
 
-      <div id="AddContainer" class="AddContainer">
+      <form id="AddContainer" class="AddContainer" onsubmit="addContactFunction(
+        document.getElementById('vorname').value,
+        document.getElementById('nachname').value,
+        document.getElementById('straße').value,
+        document.getElementById('plz').value,
+        document.getElementById('stadt').value,
+        document.getElementById('land').value,
+        document.getElementById('privat').checked
+    ); return false">
         <h1>Add</h1>
         <input type="text" name="user" placeholder="Vorname" id="vorname" required><br>
         <input type="text" name="user" placeholder="Nachname" id="nachname" required><br>
@@ -62,19 +68,11 @@
         <input type="text" name="user" placeholder="Land" id="land" required><br>
         <label>Privat</label> <input type="checkbox" id="privat"><br><br>
         <button type="button" onclick="hideAdd()">Cancel</button>
-        <button type="button" onclick="addContactFunction(
-            document.getElementById('vorname').value,
-            document.getElementById('nachname').value,
-            document.getElementById('straße').value,
-            document.getElementById('plz').value,
-            document.getElementById('stadt').value,
-            document.getElementById('land').value,
-            document.getElementById('privat').checked
-        );">Apply</button>
-      </div>
+        <button type="submit">Apply</button>
+      </form>
     </div>
 
-    <div id="EditContainer" class="EditContainer">
+    <form id="EditContainer" class="EditContainer" onsubmit="editContactFunction(); return false;">
       <h1>Edit</h1>
       <input type="text" name="user" placeholder="Vorname" id="vorname_Edit" required><br>
       <input type="text" name="user" placeholder="Nachname" id="nachname_Edit" required><br>
@@ -84,21 +82,8 @@
       <input type="text" name="user" placeholder="Land" id="land_Edit" required><br>
       <label>Privat</label> <input type="checkbox" id="privat_Edit"><br><br>
       <button type="button" onclick="hideEdit()">Cancel</button>
-      <button type="button" onclick="editContactFunction(
-          contactNummber,
-          document.getElementById('vorname_Edit').value,
-          document.getElementById('nachname_Edit').value,
-          document.getElementById('straße_Edit').value,
-          document.getElementById('plz_Edit').value,
-          document.getElementById('stadt_Edit').value,
-          document.getElementById('land_Edit').value,
-          document.getElementById('privat_Edit').checked
-      );">Apply</button>
-    </div>
-    </div>
-
-
-
+      <button type="submit">Apply</button>
+    </form>
   </body>
 
 </html>

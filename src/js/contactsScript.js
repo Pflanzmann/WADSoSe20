@@ -53,7 +53,7 @@ function printContacts(isAdmin) {
                 x += "</td><td> <button type=\"button\" onclick=\"removeContactFunction(" + isAdmin + "," + i + ");\">Delete " + contacts[i].vorname + "</button>"
                     + "</td><td> <button type=\"button\" onclick=\"editFunction(" + isAdmin + "," + i + ")\">Edit</button>"
             } else {
-                x += "</td><td></td><td>" 
+                x += "</td><td></td><td>"
             }
             x += "</td><td> <input type=\"checkbox\" id=\"checkBox" + i + "\" onclick=\"togglePrivate(" + i + ")\"></input> </td></tr>";
         }
@@ -85,6 +85,7 @@ function editFunction(isAdmin, index) {
     if (isAdmin == false) {
         return;
     }
+
     contactNummber = index;
     edit();
     contact = contacts[index];
@@ -97,12 +98,20 @@ function editFunction(isAdmin, index) {
     document.getElementById('privat_Edit').checked = contact.isPrivate;
 }
 
-function editContactFunction(index, vorname, nachname, straße, plz, stadt, land, isPrivate) {
-    editContact(index, vorname, nachname, straße, plz, stadt, land, isPrivate);
+function editContactFunction() {
+    console.log("dasmoidsa")
+    contacts[contactNummber].vorname = document.getElementById('vorname_Edit').value;
+    contacts[contactNummber].nachname = document.getElementById('nachname_Edit').value;
+    contacts[contactNummber].straße = document.getElementById('straße_Edit').value;
+    contacts[contactNummber].plz = document.getElementById('plz_Edit').value;
+    contacts[contactNummber].stadt = document.getElementById('stadt_Edit').value;
+    contacts[contactNummber].land = document.getElementById('land_Edit').value;
+    contacts[contactNummber].isPrivate = document.getElementById('privat_Edit').checked;
     document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
 }
 
 function backToLoginFunction() {
     document.getElementById("addButton").hidden = true;
+    removeMarkers();
     backToLogin();
 }
