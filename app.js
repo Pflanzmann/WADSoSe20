@@ -23,27 +23,41 @@ class User {
         this.isAdmin = isAdmin;
     }
 }
+module.exports = {
+    verifyUser: function (vorname, password) {
+        for (i = 0; i < users.length; i++) {
+            if (users[i].vorname == vorname && users[i].password == password)
+                return true;
+        }
+        return false;
+    },
 
-var users;
-
-function getUsers(rows) {
-
-    for (i = 0; i < rows.length; i++) {
-        /*
-        var pgUsers =str.split(',')
-
-        var id
-        var vorname
-        var nachname
-        var password
-        var isAdmin
-
-        */
+    getUser: function (vorname, password) {
+        for (i = 0; i < users.length; i++) {
+            if (users[i].vorname == vorname && users[i].password == password)
+                return users[i];
+        }
+        return null;
     }
 }
 
+var users = new Array(0);
+
+function getUsers(rows) {
+    for (i = 0; i < rows.length; i++) {
+        var id = rows[i].userid;
+        var vorname = rows[i].vorname;
+        var nachname = rows[i].nachname;
+        var password = rows[i].password;
+        var isAdmin = rows[i].isadmin;
+        var user = new User(id, vorname, nachname, password, isAdmin)
+        users.push(user);
+    }
+    console.log(users[0].id)
+}
+
+//get all users
 client.query('SELECT * FROM nutzer', (err, res) => {
-    console.log(res.rows);
     getUsers(res.rows);
     client.end();
 });

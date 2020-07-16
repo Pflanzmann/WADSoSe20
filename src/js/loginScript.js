@@ -1,73 +1,77 @@
-class User {
 
-  username;
+class User {
+  id;
+  vorname;
+  nachname;
   password;
   isAdmin;
 
-  constructor(username, password, isAdmin) {
-    this.username = username;
+  constructor(id, vorname, nachname, password, isAdmin) {
+    this.id = id;
+    this.vorname = vorname;
+    this.nachname = nachname;
     this.password = password;
     this.isAdmin = isAdmin;
   }
+
 }
 
-admin = new User("admin", "1", true);
-normalo = new User("normalo", "2", false);
+var user;
 
-var users = [admin, normalo];
+function loginFunction(vorname, password) {
 
-function loginFunction(username, password) {
-  user = loginAsUser(username, password);
-  document.getElementById("status").innerHTML = "loged in as " + user.username;
-  document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
-  if (user.isAdmin == true) {
-    document.getElementById("addButton").hidden = false;
-  }
-}
-
-function loginAsUser(username, password) {
-
-  //checkUser(username,password);
-
-
-  for (i = 0; i < users.length; i++) {
-    if (users[i].username == username && users[i].password == password) {
-      login();
-      return users[i];
+  if (checkUser(vorname, password)) {
+    login();
+    document.getElementById("status").innerHTML = "loged in as " + user.vorname;
+    document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
+    if (user.isAdmin == true) {
+      document.getElementById("addButton").hidden = false;
     }
+    return;
   }
-  alert("falscher Username oder Password");
+
+  else {
+    alert("falscher Username oder Password");
+  }
+
 }
 
-function registerNewUser(username, password) {
-  user = new User(username, password, false);
-  users.push();
-  checkUser(username, password);
-  alert("neuer User mit dem Usernamen " + user.username + " registriert");
+//Brauchen wir nicht
+function registerNewUser(vorname, password) {
+  checkUser(vorname, password);
+  console.log(user);
 }
 
 function checkUser(username, password) {
-  var data = JSON.stringify({"vorname":"maxim","password":"123"});
+  var isCorrect = false;
+  const url = 'http://localhost:3000/login';
+  var data = JSON.stringify({ "vorname": username, "password": password });
 
   var xhr = new XMLHttpRequest();
-  //xhr.withCredentials = true;
-  
-  xhr.addEventListener("readystatechange", function() {
-    if(this.readyState === 4) {
-      console.log(this.responseText);
+  xhr.open("POST", url, false);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  xhr.addEventListener('load', function (event) {
+    if (xhr.status == 200) {
+      var temp = JSON.parse(xhr.responseText).user;
+      user = new User(temp.id, temp.vorname, temp.nachname, temp.password, temp.isAdmin)
+      isCorrect = true;
     }
+
   });
-  
-  xhr.open("POST", "localhost:3000/login");
-  xhr.setRequestHeader("Content-Type", "application/json");
-  
+
   xhr.send(data);
+  if (isCorrect == true) {
+    isCorrect = false;
+    return true;
+  }
 }
+
 /*
 function checkUser(username, password) {
   var user;
   const url = 'http://localhost:3000/login';
- 
+
   var request = new XMLHttpRequest();
   //request.withCredentials = true;
   request.open("POST", url);
