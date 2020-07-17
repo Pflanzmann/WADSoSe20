@@ -71,7 +71,7 @@ module.exports = {
         return contactsDB;
     },
 
-    putContact: function (contact) {
+    addContact: function (contact) {
         var values = [contact.vorname, contact.nachname, contact.straße, contact.plz, contact.stadt, contact.land, contact.isPrivate, contact.isShown]
 
         client.query('INSERT INTO contact (vorname, nachname, straße, plz, stadt, land, isPrivate, isShown) VALUES($1, $2, $3, $4, $5, $6, $7, $8)', values, (err, res) => {

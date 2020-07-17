@@ -56,9 +56,7 @@ function togglePrivate(index) {
 }
 
 function addContactFunction(vorname, nachname, straße, plz, stadt, land, isPrivate) {
-    console.log(isPrivate)
-
-    putContact(new Contact(vorname, nachname, straße, plz, stadt, land, isPrivate, false));
+    postContact(new Contact(vorname, nachname, straße, plz, stadt, land, isPrivate, false));
 }
 
 function removeContactFunction(isAdmin, index) {
@@ -130,12 +128,12 @@ function pullAllContacts() {
     return true
 }
 
-function putContact(contact) {
+function postContact(contact) {
     const url = 'http://localhost:3000/contacts';
     var data = JSON.stringify(contact);
 
     var xhr = new XMLHttpRequest();
-    xhr.open("PUT", url, false);
+    xhr.open("POST", url, false);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.addEventListener('load', function (event) {
@@ -166,7 +164,7 @@ function deleteContact(id) {
     return true
 }
 
-function editContact(contact) {
+function putContact(contact) {
     const url = 'http://localhost:3000/contacts';
     var data = JSON.stringify(contact);
 

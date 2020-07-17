@@ -34,7 +34,7 @@ router.post('/', (req, res, next) => {
 
     console.log(contact)
 
-    app.editContact(contact)
+    app.addContact(contact)
     res.status(200).json({});
 });
 

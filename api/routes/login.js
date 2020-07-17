@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
     } else {
         console.log("Falsch: ");
         console.log(user);
-        res.status(400).json({
+        res.status(401).json({
             message: 'Wrong username or password',
         });
     }
