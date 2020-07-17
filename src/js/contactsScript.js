@@ -1,5 +1,5 @@
-var user;
 var contactNummber;
+var contacts = Array();
 
 class Contact {
 
@@ -11,8 +11,9 @@ class Contact {
     land;
     isPrivate;
     isShown;
+    id;
 
-    constructor(vorname, nachname, straße, plz, stadt, land, isPrivate, isShown) {
+    constructor(vorname, nachname, straße, plz, stadt, land, isPrivate, isShown, id) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.straße = straße;
@@ -21,26 +22,13 @@ class Contact {
         this.land = land;
         this.isPrivate = isPrivate;
         this.isShown = isShown;
+        this.id = id;
     }
 
 }
 
-contact1 = new Contact("Thomas", "Nofz", "Bahnhofstraße", "14943", "Luckenwalde", "Deutschland", false);
-contact2 = new Contact("Sven", "Schneider", "Berlinerstraße 30", "13507", "Berlin", "Deutschland", true);
-var contacts = [contact1, contact2];
-
-function addContact(vorname, nachname, straße, plz, stadt, land, isPrivate) {
-    contact = new Contact(vorname, nachname, straße, plz, stadt, land, isPrivate);
-    contacts.push(contact);
-    //alert(contact.vorname+" "+contact.nachname +" hinzugefügt")
-}
-
 function editContact(index, vorname, nachname, straße, plz, stadt, land, isPrivate) {
     contacts[index] = new Contact(vorname, nachname, straße, plz, stadt, land, isPrivate, false);
-}
-
-function removeContact(index) {
-    contacts.splice(index, 1);
 }
 
 function printContacts(isAdmin) {
@@ -68,17 +56,17 @@ function togglePrivate(index) {
 }
 
 function addContactFunction(vorname, nachname, straße, plz, stadt, land, isPrivate) {
-    addContact(vorname, nachname, straße, plz, stadt, land, isPrivate);
-    document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
+    console.log(isPrivate)
+
+    putContact(new Contact(vorname, nachname, straße, plz, stadt, land, isPrivate, false));
 }
 
 function removeContactFunction(isAdmin, index) {
-    if (isAdmin == false) {
+    if (!isAdmin) {
         return;
     }
 
-    removeContact(index);
-    document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
+    deleteContact(contacts[index].id);
 }
 
 function editFunction(isAdmin, index) {
@@ -99,19 +87,99 @@ function editFunction(isAdmin, index) {
 }
 
 function editContactFunction() {
-    console.log("dasmoidsa")
-    contacts[contactNummber].vorname = document.getElementById('vorname_Edit').value;
-    contacts[contactNummber].nachname = document.getElementById('nachname_Edit').value;
-    contacts[contactNummber].straße = document.getElementById('straße_Edit').value;
-    contacts[contactNummber].plz = document.getElementById('plz_Edit').value;
-    contacts[contactNummber].stadt = document.getElementById('stadt_Edit').value;
-    contacts[contactNummber].land = document.getElementById('land_Edit').value;
-    contacts[contactNummber].isPrivate = document.getElementById('privat_Edit').checked;
-    document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
+    var contact = new Contact(
+        document.getElementById('vorname_Edit').value,
+        document.getElementById('nachname_Edit').value,
+        document.getElementById('straße_Edit').value,
+        document.getElementById('plz_Edit').value,
+        document.getElementById('stadt_Edit').value,
+        document.getElementById('land_Edit').value,
+        document.getElementById('privat_Edit').checked,
+        false,
+        contacts[contactNummber].id
+    )
+
+    putContact(contact);
 }
 
 function backToLoginFunction() {
     document.getElementById("addButton").hidden = true;
     removeMarkers();
     backToLogin();
+}
+
+function pullAllContacts() {
+    const url = 'http://localhost:3000/contacts';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+
+    xhr.addEventListener('load', function (event) {
+        if (xhr.status == 200) {
+            contacts = Array()
+            for (i = 0; i < JSON.parse(xhr.responseText).contacts.length; i++) {
+                var temp = JSON.parse(xhr.responseText).contacts[i]
+
+                contacts.push(JSON.parse(temp))
+            }
+            document.getElementById("contactTable").innerHTML = printContacts(logedInUser.isAdmin);
+        }
+    });
+
+    xhr.send();
+    return true
+}
+
+function putContact(contact) {
+    const url = 'http://localhost:3000/contacts';
+    var data = JSON.stringify(contact);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", url, false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.addEventListener('load', function (event) {
+        if (xhr.status == 200) {
+            pullAllContacts()
+        }
+    });
+
+    xhr.send(data);
+    return true
+}
+
+function deleteContact(id) {
+    const url = 'http://localhost:3000/contacts';
+    var data = JSON.stringify({ "id": id });
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", url, false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.addEventListener('load', function (event) {
+        if (xhr.status == 200) {
+            pullAllContacts()
+        }
+    });
+
+    xhr.send(data);
+    return true
+}
+
+function editContact(contact) {
+    const url = 'http://localhost:3000/contacts';
+    var data = JSON.stringify(contact);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", url, false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.addEventListener('load', function (event) {
+        if (xhr.status == 200) {
+            pullAllContacts()
+        }
+    });
+
+    xhr.send(data);
+    return true
 }

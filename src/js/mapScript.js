@@ -28,11 +28,11 @@ function createMap(error, response) {
 
 function createMarker() {
     markerLayer.clearLayers();
-    if(user != null)
+    if(logedInUser != null)
 
     for (let index = 0; index < contacts.length; index++) {
 
-        if ((!contacts[index].isPrivate || user.isAdmin) && contacts[index].isShown) {
+        if ((!contacts[index].isPrivate || logedInUser.isAdmin) && contacts[index].isShown) {
             L.mapquest.geocoding().geocode({
                 street: contacts[index].straße,
                 city: contacts[index].stadt,

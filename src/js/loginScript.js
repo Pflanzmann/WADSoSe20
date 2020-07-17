@@ -16,15 +16,12 @@ class User {
 
 }
 
-var user;
+var logedInUser;
 
 function loginFunction(vorname, password) {
-
   if (checkUser(vorname, password)) {
-    login();
-    document.getElementById("status").innerHTML = "loged in as " + user.vorname;
-    document.getElementById("contactTable").innerHTML = printContacts(user.isAdmin);
-    if (user.isAdmin == true) {
+    document.getElementById("status").innerHTML = "loged in as " + logedInUser.vorname;
+    if (logedInUser.isAdmin == true) {
       document.getElementById("addButton").hidden = false;
     }
     return;
@@ -33,17 +30,14 @@ function loginFunction(vorname, password) {
   else {
     alert("falscher Username oder Password");
   }
-
 }
 
 //Brauchen wir nicht
 function registerNewUser(vorname, password) {
-  checkUser(vorname, password);
-  console.log(user);
+  console.log(logedInUser);
 }
 
 function checkUser(username, password) {
-  var isCorrect = false;
   const url = 'http://localhost:3000/login';
   var data = JSON.stringify({ "vorname": username, "password": password });
 
@@ -54,35 +48,13 @@ function checkUser(username, password) {
   xhr.addEventListener('load', function (event) {
     if (xhr.status == 200) {
       var temp = JSON.parse(xhr.responseText).user;
-      user = new User(temp.id, temp.vorname, temp.nachname, temp.password, temp.isAdmin)
-      isCorrect = true;
-    }
+      logedInUser = temp
 
+      login()
+      pullAllContacts()
+    }
   });
 
   xhr.send(data);
-  if (isCorrect == true) {
-    isCorrect = false;
-    return true;
-  }
+  return true
 }
-
-/*
-function checkUser(username, password) {
-  var user;
-  const url = 'http://localhost:3000/login';
-
-  var request = new XMLHttpRequest();
-  //request.withCredentials = true;
-  request.open("POST", url);
-  request.addEventListener('load', function (event) {
-    if (request.status >= 200 && request.status < 300) {
-      console.log(request.responseText);
-
-    } else {
-      console.warn(request.statusText, request.responseText);
-    }
-  });
-  request.send();
-}
-*/

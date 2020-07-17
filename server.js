@@ -9,7 +9,6 @@ server.listen(port, function () {
     port);
 });
 
-
 /*
 var pg = require('pg');
 var conString = "postgres://postgres:gh12rqb9@localhost:5432/adViz";
