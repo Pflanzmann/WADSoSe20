@@ -104,8 +104,6 @@ module.exports = {
     editContact: function (contact) {
         var values = [contact.vorname, contact.nachname, contact.straße, contact.plz, contact.stadt, contact.land, contact.isPrivate, contact.isShown, contact.id]
 
-        console.log(contact)
-
         client.query('UPDATE contact SET vorname = $1, nachname = $2, straße = $3, plz = $4, stadt = $5, land = $6, isPrivate = $7, isShown = $8 WHERE id=$9', values, (err, res) => {
             if (err) {
                 console.log(err.stack);

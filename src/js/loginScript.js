@@ -26,10 +26,6 @@ function loginFunction(vorname, password) {
     }
     return;
   }
-
-  else {
-    alert("falscher Username oder Password");
-  }
 }
 
 //Brauchen wir nicht
@@ -52,7 +48,9 @@ function checkUser(username, password) {
 
       login()
       pullAllContacts()
-    }
+    } else
+      alert("falscher Username oder Password");
+
   });
 
   xhr.send(data);
